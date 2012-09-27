@@ -2,7 +2,7 @@
 
     var Draggable = {
 
-        events:"mousedown:moveable,mouseup:moveunable,mousemove:move,mouseout:moveunable",
+        events:"mousedown:moveable,mouseup:unmoveable,mousemove:move,mouseout:unmoveable",
 
         moveable: function(e,d){
             d.moveisable = true;
@@ -10,12 +10,12 @@
             d.y = e.clientY;
         },
         
-        moveunable: function(e,d){
+        unmoveable: function(e,d){
             d.moveisable = false;
             d.moveTo&&d.moveTo(1,1);
         },
 
-        move:function(e,d){
+        move: function(e,d){
             if(d.moveisable){
                 var top = this.offsetTop,
                     left = this.offsetLeft;
