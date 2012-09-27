@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>iphone</title>
+    <style>
+        div {position: absolute;width: 400px;height: 200px;border: 1px solid #ccc;left: 500px;top: 250px;}
+        .undis{display: none;}
+    </style>
+</head>
+<body>
+    <div id="detail" class="detail">
+    </div>
+    <script src="js/handlebars-min.js"></script><script src="js/c.js"></script>
+    <script src="js/control.js"></script>
+    <script src="js/draggable.js"></script>
+    <script src="js/dialog.js"></script>
+    <script>
+        void function(){
+
+            var d = new Dialog({
+                dom:document.getElementById("detail")
+            }).implement(Draggable);
+
+            var f = new Dialog({
+                dom:document.createElement("div")
+            }).implement(Draggable);
+
+            document.body.insertAdjacentElement("beforeEnd",f.dom);
+        }();
+    </script>
+</body>
+</html>

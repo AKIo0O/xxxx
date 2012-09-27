@@ -21,6 +21,16 @@
             };
         },
 
+        implement: function(){
+            var components = [].slice.call(arguments,0),
+                me = this;
+            components.forEach(function(item){
+                mix(me,item);
+            });
+            me.inject();
+            return me;
+        },
+
         init: function(){
             this.type = "Control";
             this.events = "";// 普通事件type:对应事件名 代理事件 type.class:事件名 
@@ -65,7 +75,7 @@
             }
             this.dom.addEventListener(type,function(e){
                 if(e.target.className.toLowerCase().indexOf(delegate.slice(1)) > -1){
-                    handle.call(e.target,e,me);
+                    handle.call( delegate ? e.target : this,e,me);
                 }
             },false);
         },
@@ -78,39 +88,6 @@
             this.dom.hidden = true;
         }
     };
-
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     window.mix = mix;
     window.Control =Control;

@@ -23,6 +23,7 @@
     </div>
     <script src="js/handlebars-min.js"></script><script src="js/c.js"></script>
     <script src="js/control.js"></script>
+    <script src="js/draggable.js"></script>
     <script src="js/dialog.js"></script>
     <script>
         void function(){
@@ -72,11 +73,12 @@
                     model.kids.splice(index,index+1);
                     model.count = model.count-1;
                 }
-            });
+            }).implement(Draggable);
+            
             d.show();
 
 
-
+            console.log(d);
 
 
             // // 针对dialog扩展新的业务逻辑，或者说是特殊的业务逻辑。
