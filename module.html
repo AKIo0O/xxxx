@@ -14,6 +14,7 @@
     <script src="js/control.js"></script>
     <script src="js/draggable.js"></script>
     <script src="js/dialog.js"></script>
+    <script src="js/animate.js"></script>
     <script>
         void function(){
 
@@ -23,9 +24,11 @@
 
             var f = new Dialog({
                 dom:document.createElement("div")
-            }).implement(Draggable);
+            }).implement(Draggable,Animate);
 
             document.body.insertAdjacentElement("beforeEnd",f.dom);
+            f.moveTo(0,0);
+            window.f=f;
         }();
     </script>
 </body>

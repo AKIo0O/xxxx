@@ -12,10 +12,10 @@
         
         moveunable: function(e,d){
             d.moveisable = false;
+            d.moveTo&&d.moveTo(1,1);
         },
 
         move:function(e,d){
-            
             if(d.moveisable){
                 var top = this.offsetTop,
                     left = this.offsetLeft;
@@ -24,7 +24,6 @@
                 d.x = e.clientX;
                 d.y = e.clientY;
             }
-            
         }
     };
 
