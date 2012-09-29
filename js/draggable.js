@@ -2,15 +2,15 @@
 
     var Draggable = {
 
-        events:"mousedown:moveable,mouseup:unmoveable,mousemove:move,mouseout:unmoveable",
+        events:"mousedown:movable,mouseup:unmovable,mousemove:move,mouseout:unmoveable",
 
-        moveable: function(e,d){
+        movable: function(e,d){
             d.moveisable = true;
             d.x = e.clientX;
             d.y = e.clientY;
         },
         
-        unmoveable: function(e,d){
+        unmovable: function(e,d){
             d.moveisable = false;
             d.moveTo&&d.moveTo(1,1);
         },
