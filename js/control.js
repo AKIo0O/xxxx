@@ -1,3 +1,39 @@
+
+ //
+ // 组件的组合：
+ //     实现同一个interface: 内置interface属性, interface:{type:"people",methods:"say",perporties:"name,age"}
+ //     
+ //     
+ //
+ //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (function(){
 
     var mix = function(target,opts,def){

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>autocomplete</title>
+    <style>
+    body { padding: 10%; }
+    input[type="text"] { width:300px; height:28px; border:1px solid #353535; font-size:16px;}
+    ul,li { padding:0; margin:0; list-style: none;}
+    ul { border:1px solid #353535; width:302px; border-top:0 none; margin-top:-1px;}
+    li { padding:10px; }
+    .over { background-color: #e5e5e5; } 
+    </style>
+</head>
+<body>
+    <input type="text" id="search" autocomplete="off"/>
+    <ul id="autocomplete" hidden></ul>
+    <script>
+        document.addEventListener("DOMContentLoaded",function(){
+
+            var autocomplete = document.getElementById("autocomplete"),
+                search = document.getElementById("search"),
+                data = "A,B,C,D,E,F,G".split(",");
+
+            search.addEventListener("input",function(e){
+                autocomplete.innerHTML = "";
+                if (this.value === "") return autocomplete.hidden = true;
+                data.forEach(function(item){
+                    var li = document.createElement("li");
+                    li.innerText = search.value + item;
+                    autocomplete.insertBefore(li,null);
+                });
+                autocomplete.hidden = false;
+            });
+
+            var mouse = function(e){
+                var target = e.target;
+                if(target.nodeName === "LI"){
+                    if (e.type == "click") {
+                        search.value = target.innerText;
+                        autocomplete.hidden = true;
+                        return false;
+                    }
+                    target.classList.toggle("over");
+                } 
+            };
+
+            autocomplete.addEventListener("mouseover",mouse,false);
+            autocomplete.addEventListener("mouseout",mouse,false);
+            autocomplete.addEventListener("click",mouse,false);
+
+
+            var change = function(e){
+                
+                var currentNode = autocomplete.querySelector(".over"),
+                    nextNode;
+
+                if (currentNode == null && (e.keyCode === 40 || e.keyCode === 38)) {
+                    currentNode = e.keyCode === 40 ? autocomplete.firstChild : autocomplete.lastChild;
+                    return currentNode.className = "over", e.preventDefault();
+                }
+
+                if (currentNode === null) return;// 没有选项
+
+                // 将当前的节点class移除
+                currentNode.className = "";
+
+                switch(e.keyCode){
+                    case 40 : nextNode = currentNode.nextSibling === null ? autocomplete.firstChild : currentNode.nextSibling; break;// down
+                    case 38 : nextNode = currentNode.previousSibling === null ? autocomplete.lastChild : currentNode.previousSibling; break;// up
+                    case 13 : return autocomplete.hidden = true; // enter
+                    default : return; // 普通文字输入
+                }
+
+                e.preventDefault();
+                search.value = nextNode.innerText;
+                nextNode.className = "over";
+            };
+
+            search.addEventListener("keydown",change,false);
+        });
+    </script>
+</body>
+</html>
