@@ -26,71 +26,62 @@
     <script src="js/draggable.js"></script>
     <script src="js/dialog.js"></script>
     <script>
-        void function(){
+    void function(){
 
-            var data = {count:1,age:"19",chobits:{name:"momorpg"},kids:[{name:"aki"}]},
-                tmpl = "共{{count}}项.<br/>\
-                        {{#kids}}<span><i>name:{{name}}</i><a href='#' class='delete' data-name='{{name}}'>delete</a>\
-                        </span><br/>{{/kids}}<br/>",
-                target = document.getElementById("content");
+        var data = {count:1,age:"19",chobits:{name:"momorpg"},kids:[{name:"aki"}]},
+            tmpl = "共{{count}}项.<br/>\
+                    {{#kids}}<span><i>name:{{name}}</i><a href='#' class='delete' data-name='{{name}}'>delete</a>\
+                    </span><br/>{{/kids}}<br/>",
+            target = document.getElementById("content");
 
-            insertHTML(data,tmpl,target);
-            var model = bindModel(data,target,tmpl);
+        insertHTML(data,tmpl,target);
+        var model = bindModel(data,target,tmpl);
 
-            var d = new Dialog({
-                
-                dom:document.getElementById("detail"),
-                
-                events:"click .hide:hidetext,keyup .age:addone,click .delete:del",
-                
-                doms:"age:.age",
-
-                hidetext: function(e,d){
-                    d.age.classList.toggle("undis");
-                },
-                
-                addone: function(e,d){
-                    if(e.keyCode === 13 ){
-                        var name = this.value,
-                            exits = false;
-                        model.kids.forEach(function(item,i){
-                            if(item.name == name) return exits = true;
-                        });
-                        if(exits) return d.age.style.backgroundColor = "red";
-                        else d.age.style.backgroundColor = "white";
-                        model.kids.push({name:this.value});
-                        model.count++;
-                        this.value = "";
-                    }
-                },
-                
-                del: function(e,d){
-                    var name = this.dataset.name,
-                        index = 0;
-                    model.kids.forEach(function(item,i){
-                        if(item.name == name) return index = i;
-                    });
-                    model.kids.splice(index,index+1);
-                    model.count = model.count-1;
-                }
-            }).implement(Draggable);
+        var d = new Dialog({
             
-            d.show();
+            dom:document.getElementById("detail"),
+            
+            events:"click .hide:hidetext,keyup .age:addone,click .delete:del",
+            
+            doms:"age:.age",
 
+            hidetext: function(e,d){
+                d.age.classList.toggle("undis");
+            },
+            
+            addone: function(e,d){
+                if(e.keyCode === 13 ){
+                    var name = this.value,
+                        exits = false;
+                    model.kids.forEach(function(item,i){
+                        if(item.name == name) return exits = true;
+                    });
+                    if(exits) return d.age.style.backgroundColor = "red";
+                    else d.age.style.backgroundColor = "white";
+                    model.kids.push({name:this.value});
+                    model.count++;
+                    this.value = "";
+                }
+            },
+            
+            del: function(e,d){
+                var name = this.dataset.name,
+                    index = 0;
+                model.kids.forEach(function(item,i){
+                    if(item.name == name) return index = i;
+                });
+                model.kids.splice(index,index+1);
+                model.count = model.count-1;
+            }
+        }).implement(Draggable);
+        
+        d.show();
+        // // 针对dialog扩展新的业务逻辑，或者说是特殊的业务逻辑。
+        // d.on("keyup",".age",function(e,d){
+        //     // 可以调用本来拥有的方法
+        // });
 
-            console.log(d);
-
-
-            // // 针对dialog扩展新的业务逻辑，或者说是特殊的业务逻辑。
-            // d.on("keyup",".age",function(e,d){
-            //     // 可以调用本来拥有的方法
-                
-            // });
-
-
-
-
-        }();
+    }();
     </script>
 </body>
 </html>
